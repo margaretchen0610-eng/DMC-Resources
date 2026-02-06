@@ -1,7 +1,7 @@
 /* ===== 浮动气球首页样式 ===== */
 
 .page-index-balloons {
-    background: linear-gradient(135deg, #f0f8ff 0%, #e3f2fd 25%, #e1f5fe 50%, #b3e5fc 75%, #81d4fa 100%);
+    background: radial-gradient(ellipse at center, #81d4fa 0%, #b3e5fc 30%, #e1f5fe 60%, #f0f8ff 100%);
     background-attachment: fixed;
     overflow: hidden;
 }
