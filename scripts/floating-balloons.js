@@ -33,10 +33,11 @@
             'balloon18.jpg',
             'balloon19.jpg',
             'balloon20.jpg',
-            'balloon21.jpg'
+            'balloon21.jpg',
+            'balloon22.jpg'
             // 添加更多照片时，在这里继续添加
-            // 'balloon22.jpg',
             // 'balloon23.jpg',
+            // 'balloon24.jpg',
             // ...
         ],
         images: [] // 将在初始化时随机选择
