@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HKBU DMC 共创平台 - 教程库</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">DMC 共创平台</div>
+            <ul class="nav-menu">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="calendar.html">日历/选题</a></li>
+                <li><a href="resources.html" class="active">教程库</a></li>
+                <li><a href="datasources.html">资源共享</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <header class="page-header">
+            <h1>教程库</h1>
+            <p class="subtitle">分享和发现数据新闻技能教程</p>
+        </header>
+
+        <div class="resources-container">
+            <!-- 上传区域 -->
+            <section class="upload-section">
+                <button class="btn btn-primary" id="uploadBtn">+ 上传新教程</button>
+            </section>
+
+            <!-- 筛选和搜索 -->
+            <section class="filter-section">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="搜索教程...">
+                    <span class="search-icon">🔍</span>
+                </div>
+                <div class="filter-tags">
+                    <button class="filter-tag active" data-filter="all">全部</button>
+                    <button class="filter-tag" data-filter="visualization">数据可视化</button>
+                    <button class="filter-tag" data-filter="webdev">网页搭建</button>
+                    <button class="filter-tag" data-filter="analysis">数据分析</button>
+                    <button class="filter-tag" data-filter="other">其他</button>
+                </div>
+            </section>
+
+            <!-- 资源列表 -->
+            <section class="resources-grid" id="resourcesGrid">
+                <!-- 资源卡片将通过JavaScript动态生成 -->
+            </section>
+        </div>
+
+        <!-- 上传/编辑模态框 -->
+        <div class="modal" id="resourceModal">
+            <div class="modal-content">
+                <span class="close" id="closeResourceModal">&times;</span>
+                <h2 id="resourceModalTitle">上传新教程</h2>
+                <form id="resourceForm">
+                    <input type="hidden" id="resourceId">
+                    
+                    <div class="form-group">
+                        <label for="resourceTitle">教程标题</label>
+                        <input type="text" id="resourceTitle" required placeholder="例如：用Python绘制桑基图">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="resourceCategory">分类</label>
+                        <select id="resourceCategory" required>
+                            <option value="">请选择</option>
+                            <option value="visualization">数据可视化</option>
+                            <option value="webdev">网页搭建</option>
+                            <option value="analysis">数据分析</option>
+                            <option value="other">其他</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group form-group--visualization-only" id="resourceImageGroup" style="display: none;">
+                        <label for="resourceImage">成品图片 <span class="required-hint">（数据可视化必传）</span></label>
+                        <input type="file" id="resourceImage" accept="image/*" placeholder="上传一张成品截图或效果图">
+                        <small class="form-hint">请上传教程对应的数据可视化成品图，便于他人参考</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="resourceDescription">教程描述</label>
+                        <textarea id="resourceDescription" rows="4" required placeholder="简要描述教程内容和适用场景..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="resourceLink">资源链接</label>
+                        <input type="url" id="resourceLink" placeholder="https://...">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="resourceAuthor">作者</label>
+                        <input type="text" id="resourceAuthor" placeholder="您的名字（可选）">
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">发布</button>
+                        <button type="button" class="btn btn-secondary" id="cancelResource">取消</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="scripts/supabase.js"></script>
+    <script src="scripts/resources.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+</html>

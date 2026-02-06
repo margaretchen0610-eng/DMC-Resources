@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HKBU DMC 共创平台 - 资源共享</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">DMC 共创平台</div>
+            <ul class="nav-menu">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="calendar.html">日历/选题</a></li>
+                <li><a href="resources.html">教程库</a></li>
+                <li><a href="datasources.html" class="active">资源共享</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <header class="page-header">
+            <h1>资源共享</h1>
+            <p class="subtitle">安利靠谱数据源，实用工具</p>
+        </header>
+
+        <div class="datasources-container">
+            <!-- 校内资源（置顶） -->
+            <section class="datasource-section" data-section="campus">
+                <div class="datasource-section-head">
+                    <button type="button" class="datasource-section-toggle" aria-expanded="true" title="折叠/展开"><span class="datasource-section-arrow">▼</span></button>
+                    <h2 class="section-title">校内资源</h2>
+                    <button type="button" class="btn-add-datasource" id="addCampusBtn">＋ 添加校内资源</button>
+                </div>
+                <div class="datasource-grid datasource-grid--collapsible" id="campusGrid">
+                    <!-- 校内资源卡片将通过JavaScript动态生成 -->
+                </div>
+            </section>
+
+            <!-- 优质数据资源库 -->
+            <section class="datasource-section" data-section="datasets">
+                <div class="datasource-section-head">
+                    <button type="button" class="datasource-section-toggle" aria-expanded="true" title="折叠/展开"><span class="datasource-section-arrow">▼</span></button>
+                    <h2 class="section-title">优质数据资源库</h2>
+                    <button type="button" class="btn-add-datasource" id="addDatasetBtn">＋ 添加数据源</button>
+                </div>
+                <div class="datasource-grid datasource-grid--collapsible" id="datasetsGrid">
+                    <!-- 数据资源卡片将通过JavaScript动态生成 -->
+                </div>
+            </section>
+
+            <!-- 实用工具与网页 -->
+            <section class="datasource-section" data-section="tools">
+                <div class="datasource-section-head">
+                    <button type="button" class="datasource-section-toggle" aria-expanded="true" title="折叠/展开"><span class="datasource-section-arrow">▼</span></button>
+                    <h2 class="section-title">实用工具与网页</h2>
+                    <button type="button" class="btn-add-datasource" id="addToolBtn">＋ 添加工具</button>
+                </div>
+                <div class="datasource-grid datasource-grid--collapsible" id="toolsGrid">
+                    <!-- 工具卡片将通过JavaScript动态生成 -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 添加数据源/工具 弹窗（通用） -->
+    <div class="modal" id="datasourceAddModal">
+        <div class="modal-content modal-content--compact">
+            <span class="close" id="datasourceAddModalClose">&times;</span>
+            <h2 id="datasourceAddModalTitle">添加数据源</h2>
+            <form id="datasourceAddForm">
+                <input type="hidden" id="datasourceAddType" value="dataset">
+                <div class="form-group">
+                    <label for="datasourceAddName">名称</label>
+                    <input type="text" id="datasourceAddName" required placeholder="例如：香港政府数据一站通">
+                </div>
+                <div class="form-group">
+                    <label for="datasourceAddDesc">描述</label>
+                    <textarea id="datasourceAddDesc" rows="3" placeholder="简要描述该资源..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="datasourceAddLink">链接</label>
+                    <input type="url" id="datasourceAddLink" required placeholder="https://...">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">保存</button>
+                    <button type="button" class="btn btn-secondary" id="datasourceAddCancel">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="scripts/supabase.js"></script>
+    <script src="scripts/datasources.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+</html>

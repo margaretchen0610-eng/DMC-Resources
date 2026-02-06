@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HKBU DMC 共创平台 - 日历/选题</title>
+    <link rel="stylesheet" href="./styles/main.css">
+</head>
+<body class="page-calendar">
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">DMC 共创平台</div>
+            <ul class="nav-menu">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="calendar.html" class="active">日历/选题</a></li>
+                <li><a href="resources.html">教程库</a></li>
+                <li><a href="datasources.html">资源共享</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <header class="page-header">
+            <h1>日历/选题</h1>
+            <p class="subtitle">早做准备，交稿不累</p>
+        </header>
+
+        <div class="calendar-wrapper">
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <button class="nav-btn" id="prevMonth">‹</button>
+                    <h2 id="currentMonth"></h2>
+                    <button class="nav-btn" id="nextMonth">›</button>
+                </div>
+                <div class="calendar-legend">
+                    <div class="legend-item">
+                        <span class="legend-dot legend-school"></span>
+                        <span>学校活动</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot legend-report"></span>
+                        <span>数据报告</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot legend-event"></span>
+                        <span>重大事件</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot legend-hot"></span>
+                        <span>社会热点</span>
+                    </div>
+                </div>
+                <div class="calendar-grid" id="calendarGrid">
+                    <!-- 日历网格将通过JavaScript动态生成 -->
+                </div>
+            </div>
+
+            <!-- 活动列表侧边栏 -->
+            <aside class="events-sidebar" id="eventsSidebar">
+                <div class="events-sidebar-header">
+                    <h3 id="eventsTitle">今日活动</h3>
+                </div>
+                <div id="todayEvents"></div>
+                <button class="btn btn-primary btn-add-event" id="addEventBtn">+ 添加活动</button>
+            </aside>
+        </div>
+
+        <!-- 现有选题（呈现方式同「资源共享」） -->
+        <section class="topic-summary" id="topicSummary">
+            <div class="topic-summary-header topic-section-head">
+                <button type="button" class="btn btn-primary btn-add-event" id="addTopicBtn">+ 添加选题</button>
+            </div>
+            <div class="topic-section">
+                <h3 class="topic-section-heading">Spot News</h3>
+                <div class="topic-grid" id="summarySpotNews"></div>
+            </div>
+            <div class="topic-section">
+                <h3 class="topic-section-heading">Feature Story</h3>
+                <div class="topic-grid" id="summaryFeatureStory"></div>
+            </div>
+            <div class="topic-section topic-summary-completed">
+                <div class="topic-summary-completed-header">
+                    <span class="topic-summary-completed-label">已完成选题</span>
+                    <span class="topic-summary-completed-count" id="completedCount">(0)</span>
+                </div>
+                <div class="topic-grid" id="summaryCompleted"></div>
+            </div>
+        </section>
+
+        <!-- 活动 / 选题 共用模态框 -->
+        <div class="modal" id="eventModal">
+            <div class="modal-content modal-content--compact">
+                <span class="close" id="closeModal">&times;</span>
+                <h2 id="modalTitle">添加活动</h2>
+                <form id="eventForm">
+                    <input type="hidden" id="eventDate">
+                    <input type="hidden" id="eventId">
+                    <input type="hidden" id="eventFormMode" value="event">
+                    
+                    <!-- 活动模式：添加活动 -->
+                    <div class="form-group form-group--event-only">
+                        <label for="eventTitle">活动标题</label>
+                        <input type="text" id="eventTitle" required placeholder="例：2026香港施政报告发布">
+                    </div>
+                    <div class="form-group form-group--event-only">
+                        <label for="eventCategory">分类</label>
+                        <select id="eventCategory">
+                            <option value="">请选择</option>
+                            <option value="school">学校活动</option>
+                            <option value="report">数据报告</option>
+                            <option value="major">重大事件</option>
+                            <option value="hot">社会热点</option>
+                        </select>
+                    </div>
+                    <div class="form-group form-group--event-only">
+                        <label for="eventTime">时间（非必填）</label>
+                        <input type="time" id="eventTime">
+                    </div>
+                    <div class="form-group form-group--event-only">
+                        <label for="eventLocation">地点（非必填）</label>
+                        <input type="text" id="eventLocation" placeholder="例如：AAB 201">
+                    </div>
+                    
+                    <!-- 选题模式：添加选题（仅选题、记者、选题类型、状态） -->
+                    <div class="form-group form-group--topic-only" style="display: none;">
+                        <label for="eventDescription">选题</label>
+                        <textarea id="eventDescription" rows="3" placeholder="选题或活动要点..."></textarea>
+                    </div>
+                    <div class="form-group form-group--topic-only" style="display: none;">
+                        <label for="eventReporter">记者（个人/小组）</label>
+                        <input type="text" id="eventReporter" placeholder="例如：张三 或 第一小组">
+                    </div>
+                    <div class="form-group form-group--topic-only" style="display: none;">
+                        <label for="eventTopicType">选题类型</label>
+                        <select id="eventTopicType">
+                            <option value="spot_news">Spot News</option>
+                            <option value="feature_story">Feature Story</option>
+                        </select>
+                    </div>
+                    <div class="form-group form-group--topic-only" style="display: none;">
+                        <label for="eventTopicStatus">状态</label>
+                        <select id="eventTopicStatus">
+                            <option value="preparing">准备中</option>
+                            <option value="1st_meeting">1st Editorial</option>
+                            <option value="2nd_meeting">2nd Editorial</option>
+                            <option value="3rd_meeting">3rd Editorial</option>
+                            <option value="review">待审核</option>
+                            <option value="completed">已完成</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">保存</button>
+                        <button type="button" class="btn btn-secondary" id="deleteEvent" style="display: none;">删除</button>
+                        <button type="button" class="btn btn-secondary" id="cancelEvent">取消</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./scripts/supabase.js"></script>
+    <script src="./scripts/calendar.js"></script>
+    <script src="./scripts/topics.js"></script>
+    <script src="./scripts/events.js"></script>
+    <script src="./scripts/main.js"></script>
+</body>
+</html>
+
